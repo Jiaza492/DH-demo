@@ -1,0 +1,15 @@
+{
+  "name": "keywords",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node api.js"
+  },
+  "author": "Abhinav Madahar",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.5.0"
+  }
+}
