@@ -48,4 +48,6 @@ fs.readdir(__dirname + writingDirectory, (err, filenames) => {
 	fs.writeFile("popularity.json", JSON.stringify(wordsWithRank));
 })
 
-module.exports = (word) => popularity[word] !== undefined ? popularity[word] : Infinity;
+const rankOf = (word) => popularity[word.toLowerCase()];
+
+module.exports = (word) => rankOf(word) !== undefined ? rankOf(word) : Infinity;
