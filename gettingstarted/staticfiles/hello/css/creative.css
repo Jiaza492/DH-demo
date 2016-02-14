@@ -68,6 +68,22 @@ section {
     padding: 100px 0;
 }
 
+.form_text {
+	background-color:#fff;
+	color: #f05f40!important;
+	border-radius: 5px;
+	height: 50px;
+    width: 500px;
+}
+
+.form_button {
+	background-color:#fff;
+	color: #f05f40!important;
+	border-radius: 5px;
+	/*height: 50px;*/
+    /*position: absolute;*/
+}
+
 aside {
     padding: 50px 0;
 }
