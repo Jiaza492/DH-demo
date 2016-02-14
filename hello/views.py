@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 import json
+import nltk
 
 # from .forms import SearchForm
 from .models import Greeting
@@ -10,6 +11,33 @@ from .models import Greeting
 def index(request):
     # return HttpResponse('Hello from Python!')
     return render(request, 'index.html')
+
+def getwords(sentence):
+    splitWords = nltk.word_tokenize(sentence.decode('utf-8'))
+    tagger = nltk.tag.perceptron.PerceptronTagger()
+    tagset = None
+    adjDict = []
+    for words,pos in nltk.tag._pos_tag(splitWords,tagset,tagger):
+            if pos in ['JJ','PRP']:
+                adjDict.append(words)
+    stem = nltk.stem.lancaster.LancasterStemmer()    
+    stemWords = []
+    for word in adjDict:
+        stemWords.append(stem.stem(word))
+    stopwords = nltk.corpus.stopwords.words('english')
+    result = [word for word in stemWords if word not in stopwords]
+    db = MySQLdb.connect("localhost","root","","SephoraReview")
+    cursor = db.cursor()
+    sql = "SELECT word from keywords"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    dictionary = [row[0] for row in results]
+    request = set()
+    for word in result:
+        if word in dictionary:
+            request.add(word)
+    return list(request)
+
 
 def get_key_word(search):
     res = {}
@@ -26,14 +54,19 @@ def search(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         des = request.POST.get("search")
+        keys = getwords(des)
         # get key words list here
-        list = get_data(des) # this is your customize function
+        list = get_data() # this is your customize function
         lists = json.dumps(list)
         # get product result here
         product = get_match(des) # this is your customize function
         products = json.dumps(product)
+        products = [
+                    {"productId":1, "sku_number": "ziang_jia", "product_url": "http://www.columbia.edu/~zj2170","productName":"hahaha"},
+                    {"productId":2, "sku_number": "zhen_liang", "product_url": "","productName":"hehehe"}
+                    ]
         # render to the result page
-        rendered_response = render(request, 'search_result.html', {"list":lists, "products":products })
+        rendered_response = render(request, 'search_result.html', {"list":lists, "products":products, "keys":keys })
         return rendered_response
          
 #          form = SearchForm(request.POST, request.POST.get("search_key"))
@@ -41,8 +74,9 @@ def search(request):
  
      # if a GET (or any other method) we'll create a blank form
     else:
-        list2 = "Should have a result here!"
-        return render(request, 'search_result.html', {"list":list2, "products": })
+        lists = "Should have a result here!"
+        products = "No Products found!"
+        return render(request, 'search_result.html', {"list":lists, "products": products })
     
 def get_data():
     list = { "nodes":[

@@ -13,7 +13,6 @@
 						<form action="{% url 'search' %}" method = "post">
 							{% csrf_token %}
 							<br>
-							
 							<textarea class="form_text" type="text" name="search" id="search" value="{{ search_key }}" placeholder="Describe in the way you like. Any-way, we can find it!"></textarea>
 							<br><input class = "form_button" type="submit" value="Search"/>
 						</form>

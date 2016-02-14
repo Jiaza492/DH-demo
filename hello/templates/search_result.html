@@ -1,6 +1,7 @@
 {% extends "base2.html" %}
 
 {% block content %}
+{{keys}}
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12 text-center">
@@ -12,16 +13,31 @@
 
 </div>
 <script>
-	console.log("{{list}}")
-	var myJSONList = (("{{list}}").replace(/&(l|g|quo)t;/g, function(a, b) {
-			return {
-			l   : '<',
-			g   : '>',
-			quo : '"'
-			}[b];
-		}));
+	get_json = function(json_string) {
+		var list = json_string;
+		var myJSONList = ((json_string).replace(/&(l|g|quo)t;/g, function(a, b) {
+				return {
+				l   : '<',
+				g   : '>',
+				quo : '"'
+				}[b];
+			}));
 
-	graph = JSON.parse(myJSONList);
+		graph = JSON.parse(myJSONList);
+		return graph;
+	}
+	get_url = function(product) {
+		var url = "http://www.sephora.com/" + product.product_url + "?skuId=" + product.sku_number;
+		console.log(url)
+		window.location.href = url;
+		return true;
+	}
+
+</script>
+
+<script>
+	// console.log("{{list}}")
+	get_json("{{list}}")
 	console.log(graph)
 
 	var width = 1200, height = 600;
@@ -67,6 +83,7 @@
 	}
 
 </script>
+
 <div id = "products">
 	<section id="services">
 		<div class="container">
@@ -75,38 +92,48 @@
 					<h2 class="section-heading">At Your Service</h2>
 					<hr class="primary">
 					<p class="text-muted">
-							Congratulations! FANTA has already found some product from you!
+						Congratulations! FANTA has already found some product from you!
 					</p>
 				</div>
 			</div>
 		</div>
 		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6 text-center">
-					<div class="service-box">
-						<h3>Product 1</h3>
-						<p class="text-muted">
-							You could achieve stores right after we inspiring your shopping-lust!
-						</p>
+			<ul>
+				{% for product in products %}
+				<li>
+					<div class="row">
+						<div class="col-lg-4 col-md-6 text-center">
+							<div class="service-box">
+								<!-- <h3>Picture</h3> -->
+								<div><img src ="{{product.pic_url}}" />
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 text-center">
+							<div class="service-box">
+								<h3>Details</h3>
+								<a href="javascript:void(0)" onclick="get_url({{product}})" target_blank>
+								<p class="text-muted">
+									{{product.productName}}
+								</p>
+								<p class="text-muted">
+									{{product.brandName}}
+								</p>
+								<p class="text-muted">
+									{{product.price}}
+								</p>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 text-center">
+							<div class="service-box">
+								<h3>Degree</h3>
+								<div name = "{{product.productName}}"></div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center">
-					<div class="service-box">
-						<h3>Product 2</h3>
-						<p class="text-muted">
-							Our data sources are updated regularly so they don't get out of fashion.
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 text-center">
-					<div class="service-box">
-						<h3>Product 3</h3>
-						<p class="text-muted">
-							We take care of your spare time and hope you enjoyed the time playing with Dawdling!
-						</p>
-					</div>
-				</div>
-			</div>
+				</li>
+				{% endfor %}
+			</ul>
 		</div>
 	</section>
 

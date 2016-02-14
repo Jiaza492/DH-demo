@@ -1,10 +1,5 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<head>
-
-	<meta charset="utf-8">
-</head>
-<!DOCTYPE html>
 <html lang="en">
 
 	<head>
@@ -37,7 +32,10 @@
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<!-- Custom Theme JavaScript -->
 		<script src="{% static 'hello/js/d3.v3.min.js' %}"></script>
+		<!-- <script scr="{% static 'hello/js/d3.layout.cloud.js' %}"></script> -->
+
 	</head>
 	<style>
 		.link {
@@ -60,6 +58,7 @@
 	</style>
 
 	<body id="page-top">
+
 		<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
@@ -94,10 +93,11 @@
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
-		<br><br>
+		<br>
+		<br>
+
 		{% block content %}
 		{% endblock%}
-
 		<!-- jQuery -->
 		<script src="{% static 'hello/js/jquery.js' %}"></script>
 
@@ -108,9 +108,8 @@
 		<script src="{% static 'hello/js/jquery.easing.min.js' %}"></script>
 		<script src="{% static 'hello/js/jquery.fittext.js' %}"></script>
 		<script src="{% static 'hello/js/wow.min.js' %}"></script>
-
-		<!-- Custom Theme JavaScript -->
 		<script src="{% static 'hello/js/creative.js'%}"></script>
+
 	</body>
 
 </html>
