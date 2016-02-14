@@ -7,17 +7,14 @@
 						<h2 class="section-heading">We've got what you need!</h2>
 						<hr class="light">
 						<p class="text-faded">
-							Do you ever spend an entire afternoon sitting in front of Amazon but feel have nothing to buy?
-							Did you have such embarrassed time don't remember the name of what you want to buy?
-							Dawdling is providing you a way that looking for your dreamed product just using your nature words!
-						</p>
+							Search goods online? Have problems to name and locate what in your mind? Fanta is here to find it for you - like a sale specialist in a retail store.	</p>
 						<!-- <a href="#" id = "get_start" class="btn btn-default btn-xl">Get Started!</a> -->
 						<div id = "my_search">
 						<form action="{% url 'search' %}" method = "post">
 							{% csrf_token %}
 							<br>
 							
-							<textarea class="form_text" type="text" name="search" id="search" value="{{ search_key }}" placeholder="Input any descriptions about the product. We will do our best find you the best match!"></textarea>
+							<textarea class="form_text" type="text" name="search" id="search" value="{{ search_key }}" placeholder="Describe in the way you like. Any-way, we can find it!"></textarea>
 							<br><input class = "form_button" type="submit" value="Search"/>
 						</form>
 						<div>
