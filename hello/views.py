@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 import json
 import nltk
+import MySQLdb
 
 # from .forms import SearchForm
-from .models import Greeting
 
 # Create your views here.
 def index(request):
@@ -13,34 +13,12 @@ def index(request):
     return render(request, 'index.html')
 
 def getwords(sentence):
-    splitWords = nltk.word_tokenize(sentence.decode('utf-8'))
-    tagger = nltk.tag.perceptron.PerceptronTagger()
-    tagset = None
-    adjDict = []
-    for words,pos in nltk.tag._pos_tag(splitWords,tagset,tagger):
-            if pos in ['JJ','PRP']:
-                adjDict.append(words)
-    stem = nltk.stem.lancaster.LancasterStemmer()    
-    stemWords = []
-    for word in adjDict:
-        stemWords.append(stem.stem(word))
-    stopwords = nltk.corpus.stopwords.words('english')
-    result = [word for word in stemWords if word not in stopwords]
-    db = MySQLdb.connect("localhost","root","","SephoraReview")
-    cursor = db.cursor()
-    sql = "SELECT word from keywords"
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    dictionary = [row[0] for row in results]
-    request = set()
-    for word in result:
-        if word in dictionary:
-            request.add(word)
+    
     return list(request)
 
 
 def get_key_word(search):
-    res = {}
+    
     
     return res
 
