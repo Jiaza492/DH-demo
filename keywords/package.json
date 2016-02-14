@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "chai": "^3.5.0",
-    "logarithmic": "^1.1.0"
+    "logarithmic": "^1.1.0",
+    "nraw": "^0.2.5",
+    "request": "^2.69.0"
   }
 }

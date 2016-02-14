@@ -5,10 +5,14 @@
 // npm start
 
 const express = require("express");
-const keywordsIn = require("./src/keywords.js");
+const keywordsIn = require("./keywords.js");
 
 const app = express();
 
 app.get("/text/:text", (request, response) => {
 	const text = request.params.text;
+	const keywords = keywordsIn(text);
+	response.send(keywords);
 });
+
+app.listen(8080, () => console.log("Listening"));
